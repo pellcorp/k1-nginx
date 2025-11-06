@@ -15,8 +15,8 @@ fi
 mkdir -p build
 cd build
 
-ver=1.28.0
-#curl -fLO https://nginx.org/download/nginx-1.28.0.tar.gz
+ver=1.29.3
+#curl -fLO https://nginx.org/download/nginx-${ver}.tar.gz
 tar xzf ../nginx-${ver}.tar.gz
 
 # PCRE2 (used only for regex in config; disable JIT)
@@ -67,7 +67,6 @@ export QEMU_LD_PREFIX=/opt/k1-sysroot
 
 if [ $? -ne 0 ]; then
   cat objs/autoconf.err
-  ls objs/
   exit 1
 fi
 
