@@ -72,6 +72,7 @@ export NGX_TRY_RUN=0
   --without-http_scgi_module
 
 if [ $? -ne 0 ]; then
+  cat objs/autoconf.err
   exit 1
 fi
 
