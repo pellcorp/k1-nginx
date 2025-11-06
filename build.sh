@@ -37,15 +37,8 @@ export STRIP="$TOOL/bin/${CROSS}strip"
 export CFLAGS="--sysroot=$SYSROOT -Os -pipe -EL -march=mips32r2 -mhard-float -mfp64 -mnan=2008 -mno-mips16 -mno-micromips -fno-strict-aliasing -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 export LDFLAGS="--sysroot=$SYSROOT -Wl,-EL -Wl,-m,elf32ltsmip -Wl,--gc-sections -Wl,-rpath-link,$SYSROOT/lib -Wl,-rpath-link,$SYSROOT/usr/lib -Wl,--dynamic-linker=/lib/ld-linux-mipsn8.so.1"
 
-#qemu-mipsel-static -E QEMU_LD_PREFIX=/opt/k1-sysroot /bin/true || true
-#export QEMU_LD_PREFIX=/opt/k1-sysroot
-export CC_FOR_BUILD=gcc
+export QEMU_LD_PREFIX=/opt/k1-sysroot
 
-mkdir -p objs
-printf '#!/bin/sh\nexit 0\n' > objs/autotest
-chmod +x objs/autotest
-
-export NGX_TRY_RUN=0
 ./configure \
   --with-cc="$CC" \
   --with-cc-opt="$CFLAGS" \
@@ -65,7 +58,6 @@ export NGX_TRY_RUN=0
   --http-scgi-temp-path=/var/tmp/nginx/scgi \
   --http-uwsgi-temp-path=/var/tmp/nginx/uwsgi \
   --with-pcre=../pcre2-10.43 \
-  --with-pcre-opt="--host=mips-linux-gnu --build=$(gcc -dumpmachine) --disable-jit --disable-shared" \
   --without-pcre2 \
   --without-http_gzip_module \
   --without-http-cache \
@@ -74,7 +66,6 @@ export NGX_TRY_RUN=0
   --without-http_scgi_module
 
 if [ $? -ne 0 ]; then
-  cat objs/autotest
   cat objs/autoconf.err
   exit 1
 fi
