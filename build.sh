@@ -35,7 +35,7 @@ export RANLIB="$TOOL/bin/${CROSS}ranlib"
 export STRIP="$TOOL/bin/${CROSS}strip"
 
 export CFLAGS="--sysroot=$SYSROOT -Os -pipe -EL -march=mips32r2 -mhard-float -mfp64 -mnan=2008 -mno-mips16 -mno-micromips -fno-strict-aliasing -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
-export LDFLAGS="--sysroot=$SYSROOT -Wl,-EL -Wl,-m,elf32ltsmip -Wl,--gc-sections -Wl,-rpath-link,$SYSROOT/lib -Wl,-rpath-link,$SYSROOT/usr/lib -Wl,--dynamic-linker=/lib/ld-linux-mipsn8.so.1 -static-libgcc"
+export LDFLAGS="--sysroot=$SYSROOT -Wl,-EL -Wl,-m,elf32ltsmip -Wl,--gc-sections -Wl,-rpath-link,$SYSROOT/lib -Wl,-rpath-link,$SYSROOT/usr/lib -Wl,--dynamic-linker=/lib/ld-linux-mipsn8.so.1"
 
 export QEMU_LD_PREFIX=/opt/k1-sysroot
 
@@ -46,7 +46,7 @@ export QEMU_LD_PREFIX=/opt/k1-sysroot
   --crossbuild=Linux::mipsel \
   --prefix=/usr/data/nginx \
   --conf-path=/usr/data/nginx/etc/nginx.conf \
-  --sbin-path=/usr/data/nginx/sbin \
+  --sbin-path=/usr/data/nginx/sbin/nginx \
   --pid-path=/var/run/nginx.pid \
   --lock-path=/var/run/lock/nginx.lock \
   --user=www-data --group=www-data \
