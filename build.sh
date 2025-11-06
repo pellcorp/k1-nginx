@@ -67,6 +67,7 @@ export QEMU_LD_PREFIX=/opt/k1-sysroot
 
 if [ $? -ne 0 ]; then
   cat objs/autoconf.err
+  ls objs/
   exit 1
 fi
 
