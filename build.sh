@@ -65,6 +65,11 @@ export QEMU_LD_PREFIX=/opt/k1-sysroot
   --without-http_uwsgi_module \
   --without-http_scgi_module
 
+if [ $? -ne 0 ]; then
+  cat config.log
+  exit 1
+fi
+
 make -j"$(nproc)"
 make DESTDIR="$PWD/_staging" install
 $STRIP _staging/usr/data/nginx/sbin/nginx || true
