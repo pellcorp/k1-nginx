@@ -44,9 +44,9 @@ export QEMU_LD_PREFIX=/opt/k1-sysroot
   --with-cc-opt="$CFLAGS" \
   --with-ld-opt="$LDFLAGS" \
   --crossbuild=Linux::mipsel \
-  --prefix=/usr \
-  --conf-path=/etc/nginx/nginx.conf \
-  --sbin-path=/usr/sbin/nginx \
+  --prefix=/usr/data/nginx \
+  --conf-path=/usr/data/nginx/etc/nginx.conf \
+  --sbin-path=/usr/data/nginx/sbin/nginx \
   --pid-path=/var/run/nginx.pid \
   --lock-path=/var/run/lock/nginx.lock \
   --user=www-data --group=www-data \
@@ -67,7 +67,24 @@ export QEMU_LD_PREFIX=/opt/k1-sysroot
 
 make -j"$(nproc)"
 make DESTDIR="$PWD/_staging" install
-$STRIP _staging/usr/sbin/nginx || true
+$STRIP _staging/usr/data/nginx/sbin/nginx || true
 
 echo "Creating tarball..."
+
+rm _staging/usr/data/nginx/etc/koi-utf
+rm _staging/usr/data/nginx/etc/nginx.conf.default
+rm _staging/usr/data/nginx/etc/nginx.conf
+rm _staging/usr/data/nginx/etc/uwsgi_params
+rm _staging/usr/data/nginx/etc/mime.types.default
+rm _staging/usr/data/nginx/etc/scgi_params
+rm _staging/usr/data/nginx/etc/fastcgi_params
+rm _staging/usr/data/nginx/etc/koi-win
+rm _staging/usr/data/nginx/etc/fastcgi_params.default
+rm _staging/usr/data/nginx/etc/uwsgi_params.default
+rm _staging/usr/data/nginx/etc/fastcgi.conf.default
+rm _staging/usr/data/nginx/etc/win-utf
+rm _staging/usr/data/nginx/etc/fastcgi.conf
+rm _staging/usr/data/nginx/etc/scgi_params.default
+mkdir -p _staging/usr/data/nginx/etc/sites/
+
 tar -C _staging -czf $CURRENT_DIR/build/nginx.tar.gz .
