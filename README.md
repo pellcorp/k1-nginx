@@ -1,4 +1,4 @@
-# SFTP Server for Creality OS
+# NGINX for Creality OS
 
 Build Scripts to build `nginx`
 
