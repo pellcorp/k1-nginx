@@ -46,7 +46,7 @@ export QEMU_LD_PREFIX=/opt/k1-sysroot
   --crossbuild=Linux::mipsel \
   --prefix=/usr/data/nginx \
   --conf-path=/usr/data/nginx/etc/nginx.conf \
-  --sbin-path=/usr/data/nginx/sbin/nginx \
+  --sbin-path=/usr/data/nginx/sbin \
   --pid-path=/var/run/nginx.pid \
   --lock-path=/var/run/lock/nginx.lock \
   --user=www-data --group=www-data \
