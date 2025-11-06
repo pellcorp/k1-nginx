@@ -37,11 +37,13 @@ export STRIP="$TOOL/bin/${CROSS}strip"
 export CFLAGS="--sysroot=$SYSROOT -Os -pipe -EL -march=mips32r2 -mhard-float -mfp64 -mnan=2008 -mno-mips16 -mno-micromips -fno-strict-aliasing -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 export LDFLAGS="--sysroot=$SYSROOT -Wl,-EL -Wl,-m,elf32ltsmip -Wl,--gc-sections -Wl,-rpath-link,$SYSROOT/lib -Wl,-rpath-link,$SYSROOT/usr/lib -Wl,--dynamic-linker=/lib/ld-linux-mipsn8.so.1"
 
-command -v mips-linux-gnu-gcc || echo "not on PATH"
-test -x /opt/toolchains/mips-gcc720-glibc229/bin/mips-linux-gnu-gcc || echo "not executable"
-/opt/toolchains/mips-gcc720-glibc229/bin/mips-linux-gnu-gcc --version
-
+#qemu-mipsel-static -E QEMU_LD_PREFIX=/opt/k1-sysroot /bin/true || true
 #export QEMU_LD_PREFIX=/opt/k1-sysroot
+export CC_FOR_BUILD=gcc
+
+mkdir -p objs
+printf '#!/bin/sh\nexit 0\n' > objs/autotest
+chmod +x objs/autotest
 
 export NGX_TRY_RUN=0
 ./configure \
